@@ -25,7 +25,7 @@
      <widget class="QWidget" name="main_view" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>8</horstretch>
+        <horstretch>7</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
@@ -39,11 +39,14 @@
           </sizepolicy>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QWidget" name="first" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>5</horstretch>
+              <horstretch>6</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
@@ -86,6 +89,18 @@
              </sizepolicy>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QWidget" name="widget_7" native="true">
                <property name="sizePolicy">
@@ -99,6 +114,12 @@
              <item>
               <widget class="QWidget" name="widget_5" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
                 <item>
                  <widget class="QPushButton" name="pushButton_2">
                   <property name="sizePolicy">
@@ -145,7 +166,7 @@
            <widget class="QWidget" name="second" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>5</horstretch>
+              <horstretch>6</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
@@ -257,6 +278,19 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
+        <widget class="QLabel" name="label_4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Showing letter:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QComboBox" name="letters_select">
          <item>
           <property name="text">
@@ -266,10 +300,45 @@
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Category:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QComboBox" name="tm_select">
          <item>
           <property name="text">
            <string>All TMs</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Number of pairs:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox">
+         <item>
+          <property name="text">
+           <string>show 1 pair</string>
           </property>
          </item>
         </widget>
@@ -286,6 +355,12 @@
        </sizepolicy>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
        <item>
         <widget class="QLabel" name="label">
          <property name="sizePolicy">
@@ -362,7 +437,7 @@
      <x>0</x>
      <y>0</y>
      <width>1070</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

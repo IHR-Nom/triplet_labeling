@@ -29,18 +29,13 @@ void CreateProj::on_dataset_dir_button_clicked()
     }
 }
 
-QString CreateProj::getDataPath()
-{
-    return this->data_path;
-}
-
-
 void CreateProj::on_buttonBox_accepted()
 {
     QString proj_name = this->ui->project_name->text();
     QString proj_dir = this->ui->project_location_edit->text();
     QString dataset_dir = this->ui->dataset_dir_edit->text();
 
-
+    ProjectData *projData = new ProjectData(proj_name, proj_dir, dataset_dir);
+    emit createProject(projData);
 }
 

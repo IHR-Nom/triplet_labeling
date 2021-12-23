@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     create_proj.cpp \
+    historyitem.cpp \
     main.cpp \
     application.cpp \
     mwmenubar.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     application.h \
     create_proj.h \
+    historyitem.h \
     mwmenubar.h \
     projectdata.h
 

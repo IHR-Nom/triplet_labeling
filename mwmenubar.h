@@ -1,6 +1,8 @@
 #ifndef MWMENUBAR_H
 #define MWMENUBAR_H
 
+#include "projectdata.h"
+
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QToolBar>
@@ -25,6 +27,10 @@ private slots:
     void aFileNewCallback();
     void aFileOpenCallback();
     void aFileExitCallback();
+    void createProjectCallback(ProjectData *projData);
+
+signals:
+    void createProject(ProjectData *projData);
 
 private:
     // Declare function prototypes for creating actions and menus

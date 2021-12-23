@@ -1,14 +1,14 @@
 #ifndef PROJECTDATA_H
 #define PROJECTDATA_H
 #include "QMap"
+#include "historyitem.h"
 #include <QString>
-
 
 
 class ProjectData
 {
 public:
-    ProjectData();
+    ProjectData(QString dataFileLocation, QString projectName, QString datasetDir);
     void loadData();
     void saveData();
 
@@ -16,9 +16,9 @@ public:
 
     QString *getDatasetDir() const;
 
-    QMap<QString, QList<QString> > *getCategores() const;
+    QMap<QString, QList<QString> *> *getCategores() const;
 
-    QList<QString> *getHistories() const;
+    QList<HistoryItem> *getHistories() const;
 
     QMap<QString, int> *getRelationship() const;
 
@@ -26,8 +26,9 @@ private:
     QString *dataFileLocation;
     QString *projectName;
     QString *datasetDir;
-    QMap<QString, QList<QString>> *categores;
-    QList<QString> * histories;
+    QMap<QString, QList<QString> *> *categories;
+    QMap<QString, QList<QString> *> *symbolCategoriesMap;
+    QList<HistoryItem> * histories;
     QMap<QString, int> *relationship;
 };
 

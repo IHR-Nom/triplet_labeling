@@ -17,6 +17,9 @@ public:
     Application(QWidget *parent = nullptr);
     ~Application();
 
+private slots:
+    void loadProject(ProjectData *projectData);
+
 private:
     Ui::Application *ui;
     ProjectData * projectData;

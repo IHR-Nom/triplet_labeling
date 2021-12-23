@@ -8,10 +8,17 @@ Application::Application(QWidget *parent)
 {
     ui->setupUi(this);
     this->mwMenubar = new MWMenubar(this);
+    connect(this->mwMenubar, &MWMenubar::createProject, this, &Application::loadProject);
+}
+
+void Application::loadProject(ProjectData *projectData)
+{
+    this->projectData = projectData;
+    this->projectData->loadData();
+    qDebug() << "Called";
 }
 
 Application::~Application()
 {
     delete ui;
 }
-

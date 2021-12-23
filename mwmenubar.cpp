@@ -20,11 +20,12 @@ MWMenubar::~MWMenubar()
 void MWMenubar::aFileNewCallback()
 {
     CreateProj * createProjDialog = new CreateProj(mainWindow);
-    if (createProjDialog->exec()) {
-        QString data_path = createProjDialog->getDataPath();
-    }
+    connect(createProjDialog, &CreateProj::createProject, this, &MWMenubar::createProjectCallback);
+    createProjDialog->show();
     qDebug() << "Pressing File->New!";
 }
+
+
 
 void MWMenubar::aFileOpenCallback()
 {
@@ -35,6 +36,11 @@ void MWMenubar::aFileExitCallback()
 {
     qDebug() << "Pressing File->Exit!";
     mainWindow->close();
+}
+
+void MWMenubar::createProjectCallback(ProjectData *projData)
+{
+    emit createProject(projData);
 }
 
 // Function for creating all menu actions
