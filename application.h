@@ -1,9 +1,10 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include "recent_project.h"
+
 #include <QMainWindow>
 #include <mwmenubar.h>
-#include <projectdata.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Application; }
@@ -15,6 +16,7 @@ class Application : public QMainWindow
 
 public:
     Application(QWidget *parent = nullptr);
+    void showRecentProjects();
     ~Application();
 
 private slots:
@@ -22,6 +24,7 @@ private slots:
 
 private:
     Ui::Application *ui;
+    RecentProject *recent;
     ProjectData * projectData;
     MWMenubar *mwMenubar;
 };

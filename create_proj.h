@@ -1,10 +1,10 @@
 #ifndef CREATE_PROJ_H
 #define CREATE_PROJ_H
 
-#include "projectdata.h"
 #include "ui_create_proj.h"
 #include <QDialog>
 #include <QFileDialog>
+#include <Models/projectdata.h>
 
 
 class CreateProj : public QDialog, public Ui::ProjectCreation

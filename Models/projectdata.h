@@ -9,6 +9,7 @@ class ProjectData
 {
 public:
     ProjectData(QString dataFileLocation, QString projectName, QString datasetDir);
+    ProjectData(QString dataFileLocation);
     void loadData();
     void saveData();
 

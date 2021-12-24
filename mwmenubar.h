@@ -1,11 +1,11 @@
 #ifndef MWMENUBAR_H
 #define MWMENUBAR_H
 
-#include "projectdata.h"
-
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QToolBar>
+
+#include <Models/projectdata.h>
 
 class QAction;
 class QMenu;

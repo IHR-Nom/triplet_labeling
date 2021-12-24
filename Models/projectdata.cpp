@@ -10,6 +10,11 @@ ProjectData::ProjectData(QString dataFileLocation, QString projectName, QString 
     this->datasetDir = &datasetDir;
 }
 
+ProjectData::ProjectData(QString dataFileLocation)
+{
+    this->dataFileLocation = &dataFileLocation;
+}
+
 void ProjectData::loadData()
 {
     QDirIterator it(*this->datasetDir, QStringList() << "*.png", QDir::Files, QDirIterator::Subdirectories);
