@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     Models/recent_project_data.cpp \
+    RecentProjects/History/historywidget.cpp \
     RecentProjects/recentprojectwidget.cpp \
     create_proj.cpp \
     Models/historyitem.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     Models/recent_project_data.h \
+    RecentProjects/History/historywidget.h \
     RecentProjects/recentprojectwidget.h \
     application.h \
     create_proj.h \
@@ -30,6 +32,7 @@ HEADERS += \
     RecentProjects/recent_project.h
 
 FORMS += \
+    RecentProjects/History/historywidget.ui \
     RecentProjects/recentprojectwidget.ui \
     application.ui \
     create_proj.ui \
