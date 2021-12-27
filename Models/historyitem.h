@@ -8,11 +8,18 @@
 class HistoryItem
 {
 public:
-    HistoryItem(QString *category);
+    HistoryItem(QString category, QString secondaryCategory);
+    HistoryItem(QString category, QString secondaryCategory, long timestamp);
+
+    const QString getCategory() const;
+
+    const QString getSecondCategory() const;
+
+    long getTimestamp() const;
 
 private:
-    QString * category;
-    QMap<QString, QList<QString> *> * samples;
+    QString category;
+    QString secondCategory;
     long timestamp;
 };
 

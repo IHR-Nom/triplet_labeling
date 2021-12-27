@@ -24,7 +24,8 @@ signals:
 private slots:
     void on_openProj_clicked();
     void createProjectCallback(ProjectData *projData);
-
+    void deleteRecentCallback(RecentProjectData *recent);
+    void openProjCallback(RecentProjectData *recent);
     void on_newProj_clicked();
 
 private:

@@ -10,27 +10,30 @@ CONFIG += c++11
 
 SOURCES += \
     Models/recent_project_data.cpp \
+    RecentProjects/recentprojectwidget.cpp \
     create_proj.cpp \
     Models/historyitem.cpp \
     main.cpp \
     application.cpp \
     mwmenubar.cpp \
     Models/projectdata.cpp \
-    recent_project.cpp
+    RecentProjects/recent_project.cpp
 
 HEADERS += \
     Models/recent_project_data.h \
+    RecentProjects/recentprojectwidget.h \
     application.h \
     create_proj.h \
     Models/historyitem.h \
     mwmenubar.h \
     Models/projectdata.h \
-    recent_project.h
+    RecentProjects/recent_project.h
 
 FORMS += \
+    RecentProjects/recentprojectwidget.ui \
     application.ui \
     create_proj.ui \
-    recent_project.ui
+    RecentProjects/recent_project.ui
 
 TRANSLATIONS += \
     triplet_labeling_en_GB.ts
