@@ -20,7 +20,6 @@ public:
     void loadFirstCategory(QString symbol, QString tm, int nImages);
     void loadSecondCategory(QString symbol, QString tm, int nImages);
     void addHistoryWidget(HistoryItem *item);
-    void fillCategories();
     ~Application();
 
 private slots:
@@ -42,6 +41,8 @@ private slots:
     void on_zoomIn_clicked();
 
     void on_zoomOut_clicked();
+
+    void on_numb_images_currentTextChanged(const QString &arg1);
 
 private:
     void saveRelationship(QString symbol, QString first_tm, QString second_tm, int relationship);

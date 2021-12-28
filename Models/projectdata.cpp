@@ -13,7 +13,6 @@ ProjectData::ProjectData(QString dataFileLocation, QString projectName, QString 
     this->histories = new QList<HistoryItem *> ();
     this->projectName = projectName;
     this->datasetDir = datasetDir;
-    categories = new QMap<QString, QList<QString> *>();
     symbolCategoriesMap = new QMap<QString, QMap<QString, QList<QString> *> *>();
 }
 
@@ -22,13 +21,11 @@ ProjectData::ProjectData(QString dataFileLocation)
     this->dataFileLocation = dataFileLocation;
     this->relationships = new QMap<QString, QMap<QString, int> *>();
     this->histories = new QList<HistoryItem *> ();
-    categories = new QMap<QString, QList<QString> *>();
     symbolCategoriesMap = new QMap<QString, QMap<QString, QList<QString> *> *>();
 }
 
 ProjectData::~ProjectData()
 {
-    delete categories;
     delete symbolCategoriesMap;
     delete histories;
     delete relationships;
@@ -70,10 +67,6 @@ void ProjectData::loadData()
         QFileInfo * file = new QFileInfo(it.next());
         QString category = file->baseName().split("_").at(1);
         QString symbol = file->baseName().split("_").at(0);
-        if (!categories->contains(category)) {
-            categories->insert(category, new QList<QString>());
-        }
-        this->categories->value(category)->append(file->absoluteFilePath());
         if (!symbolCategoriesMap->contains(symbol)) {
             symbolCategoriesMap->insert(symbol, new QMap<QString, QList<QString> *>());
         }
@@ -173,10 +166,6 @@ QString ProjectData::getDatasetDir() const
     return datasetDir;
 }
 
-QMap<QString, QList<QString> *> *ProjectData::getCategores() const
-{
-    return categories;
-}
 
 QList<HistoryItem *> *ProjectData::getHistories() const
 {

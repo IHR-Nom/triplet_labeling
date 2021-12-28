@@ -35,7 +35,6 @@ private:
     QString dataFileLocation;
     QString projectName;
     QString datasetDir;
-    QMap<QString, QList<QString> *> *categories;
     QMap<QString, QMap<QString, QList<QString> *> *> *symbolCategoriesMap;
     QList<HistoryItem *> * histories;
     QMap<QString, QMap<QString, int> *> *relationships;

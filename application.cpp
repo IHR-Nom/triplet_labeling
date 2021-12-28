@@ -22,6 +22,10 @@ Application::Application(QWidget *parent)
     ui->historyScrollWidget->layout()->setContentsMargins(5, 2, 5, 2);
     ui->historyScrollWidget->layout()->setSpacing(2);
     ui->historyScrollWidget->layout()->setAlignment(Qt::AlignTop);
+
+    ui->first_img_area->layout()->setAlignment(Qt::AlignCenter);
+    ui->second_img_area->layout()->setAlignment(Qt::AlignCenter);
+    ui->numb_images->setCurrentIndex(1);
 }
 
 void Application::showRecentProjects()
@@ -29,9 +33,9 @@ void Application::showRecentProjects()
     this->recent->show();
 }
 
-void Application::loadFirstCategory(QString symbol, QString tm, int nImages)
+void Application::loadFirstCategory(QString symbol, QString tm, int index)
 {
-    QList<QString> *images = projectData->getSymbolCategoriesMap()->value(symbol)->value(tm);
+    QList<QString> *images = projectData->getSymbolCategoriesMap()->value(symbol)->value(tm);       
     QString imgPath = images->at(QRandomGenerator::global()->bounded(0, images->size()));
     QImageReader reader(imgPath);
     reader.setAutoTransform(true);
@@ -43,12 +47,13 @@ void Application::loadFirstCategory(QString symbol, QString tm, int nImages)
                                  .arg(QDir::toNativeSeparators(imgPath), reader.errorString()));
         return;
     }
-    ui->image->setPixmap(QPixmap::fromImage(image));
+    QLabel *imageArea = qobject_cast<QLabel*>(ui->first_img_area->layout()->itemAt(index)->widget());
+    imageArea->setPixmap(QPixmap::fromImage(image));
 }
 
-void Application::loadSecondCategory(QString symbol, QString tm, int nImages)
+void Application::loadSecondCategory(QString symbol, QString tm, int index)
 {
-    QList<QString> *images = projectData->getSymbolCategoriesMap()->value(symbol)->value(tm);
+    QList<QString> *images = projectData->getSymbolCategoriesMap()->value(symbol)->value(tm);    
     QString imgPath = images->at(QRandomGenerator::global()->bounded(0, images->size()));
     QImageReader reader(imgPath);
     reader.setAutoTransform(true);
@@ -60,7 +65,8 @@ void Application::loadSecondCategory(QString symbol, QString tm, int nImages)
                                  .arg(QDir::toNativeSeparators(imgPath), reader.errorString()));
         return;
     }
-    ui->image_2->setPixmap(QPixmap::fromImage(image));
+    QLabel *imageArea = qobject_cast<QLabel*>(ui->second_img_area->layout()->itemAt(index)->widget());
+    imageArea->setPixmap(QPixmap::fromImage(image));
 }
 
 void Application::addHistoryWidget(HistoryItem *item)
@@ -69,11 +75,6 @@ void Application::addHistoryWidget(HistoryItem *item)
     HistoryWidget *w = new HistoryWidget(this, item, relation);
     ui->historyScrollWidget->layout()->addWidget(w);
     connect(w, &HistoryWidget::deleteHistory, this, &Application::deleteHistoryItem);
-}
-
-void Application::fillCategories()
-{
-
 }
 
 
@@ -126,7 +127,6 @@ void Application::on_letters_select_currentTextChanged(const QString &symbol)
     this->ui->first_tm->clear();    
     for (int i = 0; i < tms.size(); i++) {
         this->ui->first_tm->addItem(tms.at(i));
-        this->ui->second_tm->addItem(tms.at(i));
     }
 }
 
@@ -134,9 +134,8 @@ void Application::on_letters_select_currentTextChanged(const QString &symbol)
 void Application::on_first_tm_currentTextChanged(const QString &tm)
 {
     if (tm != "") {
-        QString symbol = this->ui->letters_select->currentText();
-        loadFirstCategory(symbol, tm, 1);
         this->ui->second_tm->clear();
+        QString symbol = this->ui->letters_select->currentText();
         QList<QString> tms = projectData->getSymbolCategoriesMap()->value(symbol)->keys();
         ListUtils::sort(&tms);
         for (int i = 0; i < tms.size(); i++) {
@@ -148,6 +147,7 @@ void Application::on_first_tm_currentTextChanged(const QString &tm)
             }
             this->ui->second_tm->addItem(tms.at(i));
         }
+        emit on_shuffle_clicked();
     }
 }
 
@@ -155,8 +155,7 @@ void Application::on_first_tm_currentTextChanged(const QString &tm)
 void Application::on_second_tm_currentTextChanged(const QString &tm)
 {
     if (tm != "") {
-        QString symbol = this->ui->letters_select->currentText();
-        loadSecondCategory(symbol, tm, 1);
+        emit on_shuffle_clicked();
     }
 }
 
@@ -165,9 +164,15 @@ void Application::on_shuffle_clicked()
 {
     QString symbol = this->ui->letters_select->currentText();
     QString tm1 = this->ui->first_tm->currentText();
-    loadFirstCategory(symbol, tm1, 1);
     QString tm2 = this->ui->second_tm->currentText();
-    loadSecondCategory(symbol, tm2, 1);
+    if (symbol == "" || tm1 == "" || tm2 == "") {
+        return;
+    }
+    int n_images = ui->numb_images->currentText().toInt();
+    for (int i = 0; i < n_images; i++) {
+        loadFirstCategory(symbol, tm1, i);
+        loadSecondCategory(symbol, tm2, i);
+    }
 }
 
 
@@ -225,21 +230,58 @@ void Application::on_clear_clicked()
 
 
 void Application::on_zoomIn_clicked()
-{
-    QPixmap pic = ui->image->pixmap(Qt::ReturnByValue);
-    ui->image->setPixmap(pic.scaled(1.5 * pic.size()));
+{    
+    int n_images = ui->numb_images->currentText().toInt();
+    for (int i = 0; i < n_images; i++) {
+        QLabel *imageArea = qobject_cast<QLabel*>(ui->first_img_area->layout()->itemAt(i)->widget());
+        QPixmap pic = imageArea->pixmap(Qt::ReturnByValue);
+        imageArea->setPixmap(pic.scaled(1.5 * pic.size()));
 
-    pic = ui->image_2->pixmap(Qt::ReturnByValue);
-    ui->image_2->setPixmap(pic.scaled(1.5 * pic.size()));
+        imageArea = qobject_cast<QLabel*>(ui->second_img_area->layout()->itemAt(i)->widget());
+        pic = imageArea->pixmap(Qt::ReturnByValue);
+        imageArea->setPixmap(pic.scaled(1.5 * pic.size()));
+    }
 }
 
 
 void Application::on_zoomOut_clicked()
 {
-    QPixmap pic = ui->image->pixmap(Qt::ReturnByValue);
-    ui->image->setPixmap(pic.scaled(0.8 * pic.size()));
+    int n_images = ui->numb_images->currentText().toInt();
+    for (int i = 0; i < n_images; i++) {
+        QLabel *imageArea = qobject_cast<QLabel*>(ui->first_img_area->layout()->itemAt(i)->widget());
+        QPixmap pic = imageArea->pixmap(Qt::ReturnByValue);
+        imageArea->setPixmap(pic.scaled(0.8 * pic.size()));
 
-    pic = ui->image_2->pixmap(Qt::ReturnByValue);
-    ui->image_2->setPixmap(pic.scaled(0.8 * pic.size()));
+        imageArea = qobject_cast<QLabel*>(ui->second_img_area->layout()->itemAt(i)->widget());
+        pic = imageArea->pixmap(Qt::ReturnByValue);
+        imageArea->setPixmap(pic.scaled(0.8 * pic.size()));
+    }
+}
+
+
+void Application::on_numb_images_currentTextChanged(const QString &numb_images)
+{
+    QLayoutItem * item = ui->first_img_area->layout()->takeAt(0);
+    while (item != 0) {
+        delete item->widget();
+        delete item;
+        item = ui->first_img_area->layout()->takeAt(0);
+    }
+    item = ui->second_img_area->layout()->takeAt(0);
+    while (item != 0) {
+        delete item->widget();
+        delete item;
+        item = ui->second_img_area->layout()->takeAt(0);
+    }
+    int n_images = numb_images.toInt();
+    for (int i = 0; i < n_images; i++) {
+        QLabel *first = new QLabel(this);
+        first->setAlignment(Qt::AlignHCenter);
+        ui->first_img_area->layout()->addWidget(first);
+        QLabel *second = new QLabel(this);
+        second->setAlignment(Qt::AlignHCenter);
+        ui->second_img_area->layout()->addWidget(second);
+    }
+    emit on_shuffle_clicked();
 }
 
