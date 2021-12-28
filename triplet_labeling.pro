@@ -44,6 +44,8 @@ TRANSLATIONS += \
     triplet_labeling_en_GB.ts
 CONFIG += lrelease
 CONFIG += embed_translations
+RC_ICONS = Icons/icon.ico
+ICON = Icons/icon.icns
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

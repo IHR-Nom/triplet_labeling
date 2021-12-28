@@ -107,6 +107,8 @@ void Application::deleteHistoryItem(HistoryItem *item)
     delete item;
     delete layoutItem;
     projectData->saveData();
+    QString symbol = this->ui->letters_select->currentText();
+    emit on_letters_select_currentTextChanged(symbol);
 }
 
 Application::~Application()
