@@ -21,6 +21,7 @@ HistoryWidget::HistoryWidget(QWidget *parent, HistoryItem* item, int relation) :
         ui->icon->setPixmap(QIcon(":/Icons/Icons/No_icon_red.svg").pixmap(h, h));
     }
     ui->label->setText("TM " + item->getCategory() + " and TM " + item->getSecondCategory());
+    ui->label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     installEventFilter(this);
 }
 

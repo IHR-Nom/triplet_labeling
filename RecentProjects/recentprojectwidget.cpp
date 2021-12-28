@@ -9,6 +9,7 @@ RecentProjectWidget::RecentProjectWidget(QWidget *parent, RecentProjectData *rec
     recentProjData = recentProj;
     ui->projName->setText(recentProjData->getProjectName());
     ui->projPath->setText(recentProjData->getProjectLocation());
+    ui->projPath->setTextInteractionFlags(Qt::TextSelectableByMouse);
 }
 
 RecentProjectWidget::~RecentProjectWidget()

@@ -124,9 +124,13 @@ void Application::on_letters_select_currentTextChanged(const QString &symbol)
     QList<QString> tms = projectData->getSymbolCategoriesMap()->value(symbol)->keys();
     ListUtils::sort(&tms);
 
+    QString prevSelected = this->ui->first_tm->currentText();
     this->ui->first_tm->clear();    
     for (int i = 0; i < tms.size(); i++) {
         this->ui->first_tm->addItem(tms.at(i));
+        if (tms.at(i) == prevSelected) {
+            this->ui->first_tm->setCurrentText(tms.at(i));
+        }
     }
 }
 
@@ -134,6 +138,7 @@ void Application::on_letters_select_currentTextChanged(const QString &symbol)
 void Application::on_first_tm_currentTextChanged(const QString &tm)
 {
     if (tm != "") {
+        QString prevSelected = this->ui->second_tm->currentText();
         this->ui->second_tm->clear();
         QString symbol = this->ui->letters_select->currentText();
         QList<QString> tms = projectData->getSymbolCategoriesMap()->value(symbol)->keys();
@@ -146,6 +151,9 @@ void Application::on_first_tm_currentTextChanged(const QString &tm)
                 continue;
             }
             this->ui->second_tm->addItem(tms.at(i));
+            if (tms.at(i) == prevSelected) {
+                this->ui->second_tm->setCurrentText(tms.at(i));
+            }
         }
         emit on_shuffle_clicked();
     }
