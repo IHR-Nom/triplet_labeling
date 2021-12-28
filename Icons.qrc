@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/Icons">
+        <file>Icons/checked.png</file>
+        <file>Icons/No_icon_red.svg</file>
+        <file>Icons/question_green.svg</file>
+        <file>Icons/red_icon.svg</file>
+        <file>Icons/icon.png</file>
+        <file>Icons/zoom.svg</file>
+        <file>Icons/reload.svg</file>
+        <file>Icons/refresh-icon.svg</file>        
+    </qresource>
+</RCC>
