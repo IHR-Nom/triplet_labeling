@@ -10,8 +10,9 @@ CONFIG += c++11
 
 SOURCES += \
     Models/recent_project_data.cpp \
-    RecentProjects/History/historywidget.cpp \
+    History/historywidget.cpp \
     RecentProjects/recentprojectwidget.cpp \
+    Utils/listutils.cpp \
     create_proj.cpp \
     Models/historyitem.cpp \
     main.cpp \
@@ -22,8 +23,9 @@ SOURCES += \
 
 HEADERS += \
     Models/recent_project_data.h \
-    RecentProjects/History/historywidget.h \
+    History/historywidget.h \
     RecentProjects/recentprojectwidget.h \
+    Utils/listutils.h \
     application.h \
     create_proj.h \
     Models/historyitem.h \
@@ -32,7 +34,7 @@ HEADERS += \
     RecentProjects/recent_project.h
 
 FORMS += \
-    RecentProjects/History/historywidget.ui \
+    History/historywidget.ui \
     RecentProjects/recentprojectwidget.ui \
     application.ui \
     create_proj.ui \
@@ -47,3 +49,6 @@ CONFIG += embed_translations
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Icons.qrc

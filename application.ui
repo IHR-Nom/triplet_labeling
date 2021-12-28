@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1070</width>
-    <height>701</height>
+    <width>1240</width>
+    <height>785</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -21,13 +21,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="Line" name="line">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1" rowspan="4">
      <widget class="QWidget" name="history_area" native="true">
       <property name="sizePolicy">
@@ -40,8 +33,11 @@
        <property name="leftMargin">
         <number>0</number>
        </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
        <property name="rightMargin">
-        <number>12</number>
+        <number>9</number>
        </property>
        <item>
         <widget class="QLabel" name="label">
@@ -52,7 +48,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>History</string>
+          <string>Histories</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -60,47 +56,74 @@
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="frame_3">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+        <widget class="QScrollArea" name="historyScroll">
+         <property name="widgetResizable">
+          <bool>true</bool>
          </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0">
-          <property name="leftMargin">
-           <number>0</number>
+         <widget class="QWidget" name="historyScrollWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>259</width>
+            <height>691</height>
+           </rect>
           </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QScrollArea" name="scrollArea">
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="history_scroll">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>216</width>
-               <height>594</height>
-              </rect>
-             </property>
-            </widget>
-           </widget>
-          </item>
-         </layout>
+         </widget>
         </widget>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QWidget" name="tools" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>20</height>
+       </size>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Showing letter:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="letters_select">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_11" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
      </widget>
     </item>
     <item row="2" column="0" rowspan="2">
@@ -145,6 +168,9 @@
              </sizepolicy>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QWidget" name="widget_4" native="true">
                <property name="sizePolicy">
@@ -264,7 +290,7 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="pushButton_2">
+                 <widget class="QPushButton" name="shuffle">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -317,6 +343,9 @@
              <string notr="true"/>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QWidget" name="widget_9" native="true">
                <property name="sizePolicy">
@@ -414,86 +443,83 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="same_author">
+           <widget class="QGroupBox" name="relationship">
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QRadioButton" name="sameAuthor">
+               <property name="text">
+                <string>Same author</string>
+               </property>
+               <property name="icon">
+                <iconset resource="Icons.qrc">
+                 <normaloff>:/Icons/Icons/checked.png</normaloff>:/Icons/Icons/checked.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="cbSameAuthor">
+               <property name="text">
+                <string>Can be the same author</string>
+               </property>
+               <property name="icon">
+                <iconset resource="Icons.qrc">
+                 <normaloff>:/Icons/Icons/question_green.svg</normaloff>:/Icons/Icons/question_green.svg</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="cbDiffAuthor">
+               <property name="text">
+                <string>Can be different author</string>
+               </property>
+               <property name="icon">
+                <iconset resource="Icons.qrc">
+                 <normaloff>:/Icons/Icons/red_icon.svg</normaloff>:/Icons/Icons/red_icon.svg</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="diffAuthor">
+               <property name="text">
+                <string>Different author</string>
+               </property>
+               <property name="icon">
+                <iconset resource="Icons.qrc">
+                 <normaloff>:/Icons/Icons/No_icon_red.svg</normaloff>:/Icons/Icons/No_icon_red.svg</iconset>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clear">
             <property name="text">
-             <string>Same author</string>
+             <string>Clear</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="could_be_same_author">
-            <property name="text">
-             <string>Can be same author</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="not_sure">
+           <widget class="QPushButton" name="next">
             <property name="text">
              <string>Next</string>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="can_be_diff_author">
-            <property name="text">
-             <string>Can be different author</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="diff_author">
-            <property name="text">
-             <string>Different author</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QWidget" name="tools" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>20</height>
-       </size>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Showing letter:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="letters_select">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget_11" native="true"/>
        </item>
       </layout>
      </widget>
@@ -505,13 +531,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1070</width>
-     <height>22</height>
+     <width>1240</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

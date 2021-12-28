@@ -30,9 +30,14 @@ private slots:
 
     void on_second_tm_currentTextChanged(const QString &arg1);
 
-    void on_pushButton_2_clicked();
+    void on_shuffle_clicked();
+
+    void on_next_clicked();
+
+    void on_clear_clicked();
 
 private:
+    void saveRelationship(QString symbol, QString first_tm, QString second_tm, int relationship);
     Ui::Application *ui;
     RecentProject *recent;
     ProjectData * projectData;

@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <Models/historyitem.h>
+
 namespace Ui {
 class HistoryWidget;
 }
@@ -12,7 +14,7 @@ class HistoryWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit HistoryWidget(QWidget *parent = nullptr);
+    explicit HistoryWidget(QWidget *parent, HistoryItem *item, int relation);
     ~HistoryWidget();
 
 private:

@@ -10,9 +10,11 @@ class ProjectData
 public:
     ProjectData(QString dataFileLocation, QString projectName, QString datasetDir);
     ProjectData(QString dataFileLocation);
+    ~ProjectData();
     void loadData();
     void saveData();
-
+    void addRelationship(QString firstCategory, QString secondCategory, int relation);
+    void addHistory(HistoryItem *item);
     QString getProjectName() const;
 
     QString getDatasetDir() const;

@@ -22,6 +22,14 @@ ProjectData::ProjectData(QString dataFileLocation)
     this->histories = new QList<HistoryItem *> ();
 }
 
+ProjectData::~ProjectData()
+{
+    delete categories;
+    delete symbolCategoriesMap;
+    delete histories;
+    delete relationships;
+}
+
 void ProjectData::loadData()
 {
     QFile projFile(dataFileLocation);
@@ -119,6 +127,24 @@ void ProjectData::saveData()
     projFile.write(jsonDoc.toJson());
     projFile.close();
 
+}
+
+void ProjectData::addRelationship(QString firstCategory, QString secondCategory, int relation)
+{
+    if (!relationships->contains(firstCategory)) {
+        QMap<QString, int> *relationship = new QMap<QString, int>();
+        relationship->insert(secondCategory, relation);
+        relationships->insert(firstCategory, relationship);
+    }
+
+    if (!relationships->value(firstCategory)->contains(secondCategory)) {
+        relationships->value(firstCategory)->insert(secondCategory, relation);
+    }
+}
+
+void ProjectData::addHistory(HistoryItem *item)
+{
+    histories->append(item);
 }
 
 QString ProjectData::getProjectName() const
