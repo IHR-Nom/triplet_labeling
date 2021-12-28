@@ -13,6 +13,8 @@ ProjectData::ProjectData(QString dataFileLocation, QString projectName, QString 
     this->histories = new QList<HistoryItem *> ();
     this->projectName = projectName;
     this->datasetDir = datasetDir;
+    categories = new QMap<QString, QList<QString> *>();
+    symbolCategoriesMap = new QMap<QString, QMap<QString, QList<QString> *> *>();
 }
 
 ProjectData::ProjectData(QString dataFileLocation)
@@ -20,6 +22,8 @@ ProjectData::ProjectData(QString dataFileLocation)
     this->dataFileLocation = dataFileLocation;
     this->relationships = new QMap<QString, QMap<QString, int> *>();
     this->histories = new QList<HistoryItem *> ();
+    categories = new QMap<QString, QList<QString> *>();
+    symbolCategoriesMap = new QMap<QString, QMap<QString, QList<QString> *> *>();
 }
 
 ProjectData::~ProjectData()
@@ -62,8 +66,6 @@ void ProjectData::loadData()
 
 
     QDirIterator it(this->datasetDir, QStringList() << "*.png", QDir::Files, QDirIterator::Subdirectories);
-    categories = new QMap<QString, QList<QString> *>();
-    symbolCategoriesMap = new QMap<QString, QMap<QString, QList<QString> *> *>();
     while (it.hasNext()) {
         QFileInfo * file = new QFileInfo(it.next());
         QString category = file->baseName().split("_").at(1);
@@ -142,9 +144,23 @@ void ProjectData::addRelationship(QString firstCategory, QString secondCategory,
     }
 }
 
+void ProjectData::deleteRelationship(QString firstCategory, QString secondCategory)
+{
+    if (relationships->contains(firstCategory)) {
+        if (relationships->value(firstCategory)->contains(secondCategory)) {
+            relationships->value(firstCategory)->remove(secondCategory);
+        }
+    }
+}
+
 void ProjectData::addHistory(HistoryItem *item)
 {
     histories->append(item);
+}
+
+void ProjectData::deleteHistory(HistoryItem *item)
+{
+    histories->removeOne(item);
 }
 
 QString ProjectData::getProjectName() const

@@ -19,10 +19,13 @@ public:
     void showRecentProjects();
     void loadFirstCategory(QString symbol, QString tm, int nImages);
     void loadSecondCategory(QString symbol, QString tm, int nImages);
+    void addHistoryWidget(HistoryItem *item);
+    void fillCategories();
     ~Application();
 
 private slots:
     void loadProject(ProjectData *projectData);
+    void deleteHistoryItem(HistoryItem *item);
 
     void on_letters_select_currentTextChanged(const QString &arg1);
 
@@ -36,11 +39,15 @@ private slots:
 
     void on_clear_clicked();
 
+    void on_zoomIn_clicked();
+
+    void on_zoomOut_clicked();
+
 private:
     void saveRelationship(QString symbol, QString first_tm, QString second_tm, int relationship);
     Ui::Application *ui;
     RecentProject *recent;
-    ProjectData * projectData;
+    ProjectData * projectData = nullptr;
     MWMenubar *mwMenubar;
 };
 #endif // APPLICATION_H

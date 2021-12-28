@@ -43,7 +43,7 @@ void RecentProject::on_openProj_clicked()
     if (!file.isEmpty()) {
         ProjectData *projData = new ProjectData(file);
         emit loadProject(projData);
-        this->close();
+        this->accept();
     }
 }
 
@@ -53,7 +53,7 @@ void RecentProject::createProjectCallback(ProjectData *projData)
     recents->insert(0, recentProjData);
     saveRecentProjects();
     emit loadProject(projData);
-    this->close();
+    this->accept();
 }
 
 void RecentProject::deleteRecentCallback(RecentProjectData *recent)
@@ -72,7 +72,7 @@ void RecentProject::openProjCallback(RecentProjectData *recent)
 {
     ProjectData *projData = new ProjectData(recent->getProjectLocation());
     emit loadProject(projData);
-    this->close();
+    this->accept();
 }
 
 void RecentProject::on_newProj_clicked()
@@ -122,5 +122,11 @@ void RecentProject::saveRecentProjects()
     jsonDoc.setArray(jsonArray);
     recentProjFile.write(jsonDoc.toJson());
     recentProjFile.close();
+}
+
+
+void RecentProject::on_RecentProject_rejected()
+{
+    QCoreApplication::quit();
 }
 

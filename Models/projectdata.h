@@ -14,7 +14,9 @@ public:
     void loadData();
     void saveData();
     void addRelationship(QString firstCategory, QString secondCategory, int relation);
+    void deleteRelationship(QString firstCategory, QString secondCategory);
     void addHistory(HistoryItem *item);
+    void deleteHistory(HistoryItem *item);
     QString getProjectName() const;
 
     QString getDatasetDir() const;

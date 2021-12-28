@@ -9,6 +9,8 @@ HistoryWidget::HistoryWidget(QWidget *parent, HistoryItem* item, int relation) :
 {
     ui->setupUi(this);
     int h = 16;
+    this->relation = relation;
+    this->item = item;
     if (relation == 1) {
         ui->icon->setPixmap(QIcon(":/Icons/Icons/checked.png").pixmap(h, h));
     } else if (relation == 2) {
@@ -19,9 +21,26 @@ HistoryWidget::HistoryWidget(QWidget *parent, HistoryItem* item, int relation) :
         ui->icon->setPixmap(QIcon(":/Icons/Icons/No_icon_red.svg").pixmap(h, h));
     }
     ui->label->setText("TM " + item->getCategory() + " and TM " + item->getSecondCategory());
+    installEventFilter(this);
+}
+
+bool HistoryWidget::eventFilter(QObject *object, QEvent *event)
+{
+
+    if (event->type() == QEvent::MouseButtonPress ) {
+        qDebug() << "Pressed";
+    }
+
+    return QObject::eventFilter(object, event);
 }
 
 HistoryWidget::~HistoryWidget()
 {
     delete ui;
 }
+
+void HistoryWidget::on_pushButton_clicked()
+{
+    emit deleteHistory(item);
+}
+

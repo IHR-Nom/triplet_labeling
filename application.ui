@@ -298,12 +298,12 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>⟳</string>
+                   <string>⟳ </string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton">
+                 <widget class="QPushButton" name="zoomIn">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -311,7 +311,34 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Zoom</string>
+                   <string>+</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="Icons.qrc">
+                    <normaloff>:/Icons/Icons/zoom.svg</normaloff>:/Icons/Icons/zoom.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>10</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="zoomOut">
+                  <property name="text">
+                   <string> -</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="Icons.qrc">
+                    <normaloff>:/Icons/Icons/zoom.svg</normaloff>:/Icons/Icons/zoom.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>10</width>
+                    <height>10</height>
+                   </size>
                   </property>
                  </widget>
                 </item>

@@ -63,6 +63,19 @@ void Application::loadSecondCategory(QString symbol, QString tm, int nImages)
     ui->image_2->setPixmap(QPixmap::fromImage(image));
 }
 
+void Application::addHistoryWidget(HistoryItem *item)
+{
+    int relation = projectData->getRelationships()->value(item->getCategory())->value(item->getSecondCategory());
+    HistoryWidget *w = new HistoryWidget(this, item, relation);
+    ui->historyScrollWidget->layout()->addWidget(w);
+    connect(w, &HistoryWidget::deleteHistory, this, &Application::deleteHistoryItem);
+}
+
+void Application::fillCategories()
+{
+
+}
+
 
 void Application::loadProject(ProjectData *projData)
 {
@@ -70,9 +83,7 @@ void Application::loadProject(ProjectData *projData)
     projectData->loadData();
     for (int i = 0; i < projectData->getHistories()->size(); i++) {
         HistoryItem *item = projectData->getHistories()->at(i);
-        int relation = projectData->getRelationships()->value(item->getCategory())->value(item->getSecondCategory());
-        HistoryWidget *w = new HistoryWidget(this, item, relation);
-        ui->historyScrollWidget->layout()->addWidget(w);
+        addHistoryWidget(item);
     }
     QList<QString> categories = projData->getSymbolCategoriesMap()->keys();
     ListUtils::sort(&categories);
@@ -82,10 +93,27 @@ void Application::loadProject(ProjectData *projData)
     this->show();
 }
 
+void Application::deleteHistoryItem(HistoryItem *item)
+{
+    int itemIndex = projectData->getHistories()->indexOf(item);
+    projectData->deleteRelationship(item->getCategory(), item->getSecondCategory());
+    projectData->deleteRelationship(item->getSecondCategory(), item->getCategory());
+    projectData->deleteHistory(item);
+    QLayoutItem *layoutItem = ui->historyScrollWidget->layout()->takeAt(itemIndex);
+    QWidget *widget = layoutItem->widget();
+    ui->historyScrollWidget->layout()->removeWidget(widget);
+    delete widget;
+    delete item;
+    delete layoutItem;
+    projectData->saveData();
+}
+
 Application::~Application()
 {
     delete ui;
-    delete projectData;
+    if (projectData != nullptr) {
+        delete projectData;
+    }
     delete recent;
     delete mwMenubar;
 }
@@ -95,8 +123,7 @@ void Application::on_letters_select_currentTextChanged(const QString &symbol)
     QList<QString> tms = projectData->getSymbolCategoriesMap()->value(symbol)->keys();
     ListUtils::sort(&tms);
 
-    this->ui->first_tm->clear();
-    this->ui->second_tm->clear();
+    this->ui->first_tm->clear();    
     for (int i = 0; i < tms.size(); i++) {
         this->ui->first_tm->addItem(tms.at(i));
         this->ui->second_tm->addItem(tms.at(i));
@@ -109,6 +136,18 @@ void Application::on_first_tm_currentTextChanged(const QString &tm)
     if (tm != "") {
         QString symbol = this->ui->letters_select->currentText();
         loadFirstCategory(symbol, tm, 1);
+        this->ui->second_tm->clear();
+        QList<QString> tms = projectData->getSymbolCategoriesMap()->value(symbol)->keys();
+        ListUtils::sort(&tms);
+        for (int i = 0; i < tms.size(); i++) {
+            if (projectData->getRelationships()->contains(tm) && projectData->getRelationships()->value(tm)->contains(tms.at(i))) {
+                continue;
+            }
+            if (tms.at(i) == tm) {
+                continue;
+            }
+            this->ui->second_tm->addItem(tms.at(i));
+        }
     }
 }
 
@@ -149,19 +188,20 @@ void Application::on_next_clicked()
     QString tm2 = this->ui->second_tm->currentText();
     saveRelationship(symbol, tm1, tm2, state);
     emit on_clear_clicked();
+    emit on_first_tm_currentTextChanged(tm1);
 }
 
 void Application::saveRelationship(QString symbol, QString first_tm, QString second_tm, int relationship)
 {
     if (relationship == 0) {
         return;
-    }
-    HistoryItem *item = new HistoryItem(first_tm, second_tm);
-    HistoryWidget *w = new HistoryWidget(this, item, relationship);
-    ui->historyScrollWidget->layout()->addWidget(w);
+    }    
     projectData->addRelationship(first_tm, second_tm, relationship);
+    projectData->addRelationship(second_tm, first_tm, relationship);
+    HistoryItem *item = new HistoryItem(first_tm, second_tm);
     projectData->addHistory(item);
     projectData->saveData();
+    addHistoryWidget(item);
 }
 
 
@@ -181,5 +221,25 @@ void Application::on_clear_clicked()
     ui->cbSameAuthor->setAutoExclusive(true);
     ui->cbDiffAuthor->setAutoExclusive(true);
     ui->diffAuthor->setAutoExclusive(true);
+}
+
+
+void Application::on_zoomIn_clicked()
+{
+    QPixmap pic = ui->image->pixmap(Qt::ReturnByValue);
+    ui->image->setPixmap(pic.scaled(1.5 * pic.size()));
+
+    pic = ui->image_2->pixmap(Qt::ReturnByValue);
+    ui->image_2->setPixmap(pic.scaled(1.5 * pic.size()));
+}
+
+
+void Application::on_zoomOut_clicked()
+{
+    QPixmap pic = ui->image->pixmap(Qt::ReturnByValue);
+    ui->image->setPixmap(pic.scaled(0.8 * pic.size()));
+
+    pic = ui->image_2->pixmap(Qt::ReturnByValue);
+    ui->image_2->setPixmap(pic.scaled(0.8 * pic.size()));
 }
 

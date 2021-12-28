@@ -28,6 +28,8 @@ private slots:
     void openProjCallback(RecentProjectData *recent);
     void on_newProj_clicked();
 
+    void on_RecentProject_rejected();
+
 private:
     QList<RecentProjectData* > *loadRecentPrjects();
     void saveRecentProjects();
