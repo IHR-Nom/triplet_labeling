@@ -23,7 +23,9 @@ Application::Application(QWidget *parent)
     ui->historyScrollWidget->layout()->setSpacing(2);
     ui->historyScrollWidget->layout()->setAlignment(Qt::AlignTop);
 
+    ui->first_img_area->setLayout(new QVBoxLayout(this));
     ui->first_img_area->layout()->setAlignment(Qt::AlignCenter);
+    ui->second_img_area->setLayout(new QVBoxLayout(this));
     ui->second_img_area->layout()->setAlignment(Qt::AlignCenter);
     ui->numb_images->setCurrentIndex(1);
 }
