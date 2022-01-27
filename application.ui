@@ -147,8 +147,8 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>393</width>
-                     <height>368</height>
+                     <width>320</width>
+                     <height>411</height>
                     </rect>
                    </property>
                   </widget>
@@ -362,8 +362,8 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>393</width>
-                     <height>368</height>
+                     <width>320</width>
+                     <height>411</height>
                     </rect>
                    </property>
                   </widget>
@@ -619,6 +619,12 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>250</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
@@ -630,8 +636,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>83</width>
-            <height>528</height>
+            <width>248</width>
+            <height>546</height>
            </rect>
           </property>
          </widget>
@@ -648,7 +654,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

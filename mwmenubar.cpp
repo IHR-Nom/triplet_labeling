@@ -64,6 +64,18 @@ void MWMenubar::createActions()
     aFileExit->setShortcuts(QKeySequence::Quit);
     aFileExit->setStatusTip(tr("Exit the application"));
     connect(aFileExit, &QAction::triggered, this, &MWMenubar::aFileExitCallback);
+
+    aSelectSame = new QAction(tr("Mark as &same author"));
+    aSelectSame->setShortcut(QKeySequence::fromString("s"));
+
+    aSelectDiff = new QAction(tr("Mark as &different authors"));
+    aSelectDiff->setShortcut(QKeySequence::fromString("d"));
+
+    aSelectQuest = new QAction(tr("Mark as can be same author &?"));
+    aSelectQuest->setShortcut(QKeySequence::fromString("?"));
+
+    aSelectNext = new QAction(tr("Next"));
+    aSelectNext->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
 }
 
 void MWMenubar::createMenus()
@@ -73,4 +85,11 @@ void MWMenubar::createMenus()
     mFile->addAction(aFileOpen);
     mFile->addSeparator();
     mFile->addAction(aFileExit);
+
+    mSelection = mainWindow->menuBar()->addMenu(tr("&Selection"));
+    mSelection->addAction(aSelectSame);
+    mSelection->addAction(aSelectDiff);
+    mSelection->addAction(aSelectQuest);
+    mSelection->addSeparator();
+    mSelection->addAction(aSelectNext);
 }

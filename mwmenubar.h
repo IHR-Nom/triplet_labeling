@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMenuBar>
+#include <Qt>
 #include <QToolBar>
 
 #include <Models/projectdata.h>
@@ -17,6 +18,10 @@ class MWMenubar : public QMainWindow
 
 public:
     MWMenubar(QMainWindow *inMainWindow); // Constructor
+    QAction *aSelectSame;
+    QAction *aSelectDiff;
+    QAction *aSelectQuest;
+    QAction *aSelectNext;
     ~MWMenubar();                         // Destructor
 
 private:
@@ -39,6 +44,7 @@ private:
 
     // Define menubar elements
     QMenu *mFile;
+    QMenu *mSelection;
 
     // Define toolbar elements
     QToolBar *tFile;

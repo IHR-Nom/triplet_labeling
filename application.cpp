@@ -18,6 +18,10 @@ Application::Application(QWidget *parent)
     connect(recent, &RecentProject::loadProject, this, &Application::loadProject);
     this->mwMenubar = new MWMenubar(this);
     connect(this->mwMenubar, &MWMenubar::createProject, this, &Application::loadProject);    
+    connect(this->mwMenubar->aSelectSame, &QAction::triggered, this->ui->sameAuthor, &QRadioButton::click);
+    connect(this->mwMenubar->aSelectDiff, &QAction::triggered, this->ui->diffAuthor, &QRadioButton::click);
+    connect(this->mwMenubar->aSelectQuest, &QAction::triggered, this->ui->cbSameAuthor, &QRadioButton::click);
+    connect(this->mwMenubar->aSelectNext, &QAction::triggered, this->ui->next, &QRadioButton::click);
     ui->historyScrollWidget->setLayout(new QVBoxLayout(this));
     ui->historyScrollWidget->layout()->setContentsMargins(5, 2, 5, 2);
     ui->historyScrollWidget->layout()->setSpacing(2);
@@ -129,7 +133,7 @@ void Application::on_letters_select_currentTextChanged(const QString &symbol)
     ListUtils::sort(&tms);
 
     QString prevSelected = this->ui->first_tm->currentText();
-    this->ui->first_tm->clear();    
+    this->ui->first_tm->clear();
     for (int i = 0; i < tms.size(); i++) {
         this->ui->first_tm->addItem(tms.at(i));
         if (tms.at(i) == prevSelected) {

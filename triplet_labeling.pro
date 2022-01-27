@@ -46,6 +46,7 @@ CONFIG += lrelease
 CONFIG += embed_translations
 RC_ICONS = Icons/icon.ico
 ICON = Icons/icon.icns
+CONFIG-=app_bundle
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
